@@ -1,2 +1,4 @@
 # JavaScript30
-Projects following the JavaScript30 Course by Wes Bos
+As part of my wholehearted attempt to learn JavaScript I'm taking Wes Bos' JavaScript30 Course, where we (unsusprisingly) build 30 things in 30 days with JavaSscript :) – You can access the tutorials completely for free right here: https://javascript30.com/
+
+
