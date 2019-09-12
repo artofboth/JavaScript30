@@ -1,0 +1,39 @@
+/*Note: the variable titles are the same as the "name" attributes on our html tags*/
+:root {
+  --base: #fa7550;
+  --spacing: 10px;
+  --blur: 100px;
+}
+
+img {
+  margin-top: 2em;
+  padding: var(--spacing);
+  background: var(--base);
+  filter: blur(var(--blur));
+}
+
+.hl {
+  color: var(--base);
+}
+
+body {
+  text-align: center;
+  background: black;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2em;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-weight: 300;
+  letter-spacing: 0.2em;
+}
+
+.controls {
+  margin-bottom: 50px;
+}
+
+input {
+  width: 100px;
+}

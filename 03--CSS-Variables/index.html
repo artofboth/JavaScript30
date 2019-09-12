@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Scoped CSS Variables and JS</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <h2> Update CSS Variables with <span class="hl">JS</span></h2>
+
+  <div class="controls">
+    <label for="spacing">Spacing:</label>
+    <input type="range" name="spacing" min="0" max="200" data-sizing="px" />
+    <!-- We add the data-sizing option so we can specify that the values are in pixels -->
+
+    <label for="blue">Blur:</label>
+    <input type="range" name="blur" min="0" max="200" data-sizing="px" />
+
+    <label for="base">Base Color:</label>
+    <input type="color" name="base" value="#fa7550" />
+
+    <img src="jupiter.jpg" />
+
+  </div>
+
+  <script>
+    //Grabbing control inputs in the whole document and putting them into a variable. This returns a Node list (≠ array).
+    const inputs = document.querySelectorAll('.controls input');
+
+
+    function handleUpdate() {
+      //"dataset" is an object that contains all the data attributes of this specific element.
+      const suffix = this.dataset.sizing || '';
+
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix)
+
+
+    }
+
+    //Listening for a change event in each of the inputs, looping over each one with an arrow function.
+    inputs.forEach(input => input.addEventListener('change', handleUpdate))
+    //This means we are listening for the 'change' event, and then calling handleUpdate.
+
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate))
+    //Ensures the input is detected while you drag it with the mouse.
+  </script>
+
+
+</body>
+
+</html>
