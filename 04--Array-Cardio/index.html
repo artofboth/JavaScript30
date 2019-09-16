@@ -5,15 +5,16 @@
   <meta charset="utf-8">
   <title>JavaScript30: Array Cardio</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
-  <script>
-    // Get your shorts on - this is an array workout!
-    // ## Array Cardio Day 1
+  <section>
+    <p>Gaze into your Console.</p>
+  </section>
 
-    // Some data we can work with
+  <script>
+    // Data to work with
 
     const inventors = [{
         first: 'Albert',
@@ -102,15 +103,14 @@
     // Arrow function => were introduced in ES6 to make functions more concise.
     // This function returns a boolean if both things are true.
     const fifteen = inventors.filter(inventor => (inventor.year >= 1500 && inventor.year <= 1599))
-    console.table(fifteen);
 
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
-    // .map takes an array, does something with it, then returns an array of the same length. Ä factory machine that grabs a raw material and stamp it". It's unlike filter, which can return any number of things.
+    // .map takes an array, does something with it, then returns an array of the same length. "A factory machine that grabs a raw material and stamp it". It's unlike filter, which can return any number of things.
 
     const fullNames = inventors.map(inventor => (`${inventor.first} ${inventor.last}`));
-    console.table(fullNames);
+
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
@@ -122,25 +122,64 @@
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
-    // Reducse gives you the running total of what you got from the function last time.
+    // Reduce gives you the running total of what you got from the function last time.
     const totalYears = inventors.reduce((total, inventor) => {
       return total + (inventor.passed - inventor.year)
     }, 0);
-    console.table(totalYears);
 
 
     // 5. Sort the inventors by years lived
+    const oldest = inventors.sort(function(a, b) {
+      const lastPerson = a.passed - a.year;
+      const nextPerson = b.passed - b.year;
+      return lastPerson > nextPerson ? -1 : 1;
+      //Ternary operator
+    })
+
+    console.table(oldest);
+
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
+    //const category = document.querySelector('.mw-category');
+    //querySelector can be called on any existing DOM element, including to look within categories of elements.
+    //  const links = [...category.querySelectorAll('a')];
+    // The square brackets convert the Node List into an array, so we can use the .map method.
+    // ... is an ES6 spread, taking each item in the Node List and making an array element
+    // You can also write: const links = [...category.querySelectorAll('a')];, which is more readable.
+
+    //  const de = links
+    //    .map(link => link.textContent)
+    //Returns whatever text is within the link.
+    //    .filter(streetName => streetName.includes('de'))
+    //Filters results based on wether they contain 'de'
+
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const alpha = people.sort((lastOne, nextOne) => {
+      //this syntax returns each item from the .split into its own variable
+      const [aLast, aFirst] = lastOne.split(', ');
+      const [bLast, bFirst] = nextOne.split(', ');
+      return aLast > bLast ? 1 : -1;
+    })
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
+
+    const transport = data.reduce(function(obj, item) {
+      //sets the initial object to 0.
+      if (!obj[item]) {
+        obj[item] = 0;
+      }
+
+      obj[item]++;
+      return obj;
+
+    }, {})
+    //With .reduce, you start with an object, and then it loops over it and increments it. When there is no intiial 0 available to work with, use that if statement.
   </script>
 </body>
 
