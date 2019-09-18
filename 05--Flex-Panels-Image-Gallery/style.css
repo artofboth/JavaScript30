@@ -1,0 +1,103 @@
+html {
+    box-sizing: border-box;
+    font-size: 1rem;
+  }
+  
+  body {
+    margin: 0;
+  }
+  
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+
+  .panels {
+    display:flex;
+    /*We are using flexbox*/
+
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  .panel {
+    flex: 1;
+    /*This means that each of them will be evenly distributed*/
+    justify-content: center;
+    align-items: center;
+
+    /*In CSS an element can be both a flex item and a flex container*/
+    display:flex;
+    flex-direction:column;
+ 
+    color:rgba(250, 250, 250, 0.8);
+    text-align: center;
+
+
+    /* Safari transitionend event.propertyName === flex */
+    /* Chrome + FF transitionend event.propertyName === flex-grow */
+    transition:
+      font-size 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11),
+      flex 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11),
+      background 0.2s;
+    
+    font-size: 20px;
+    background-size: cover;
+    background-position: center;
+
+}
+
+.panel1 { background-image:url("gallery/nasa-a.jpg"); }
+.panel2 { background-image:url("gallery/nasa-b.jpg"); }
+.panel3 { background-image:url("gallery/nasa-c.jpg"); }
+.panel4 { background-image:url("gallery/nasa-d.jpg"); }
+.panel5 { background-image:url("gallery/nasa-e.jpg"); }
+
+/*These are each of the flex panels children*/
+.panel > * {
+    flex: 1 0 auto;
+
+    /*We are nesting flexboxes inside each other to get a really neat alignment of things*/
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    margin: 0;
+    width: 100%;
+    transition: transform 0.5s;
+}
+
+/*Selecting each of the first and last children of the panel element and placing them outside the page.*/
+.panel > *:first-child{ transform:translateY(-100%);
+}
+.panel > *:last-child{
+    transform:translateY(100%);
+}
+
+/*When the panel has a class of open-active, remove that translate*/
+.panel.open-active > *:first-child{
+    transform:translateY(0);
+}
+.panel.open-active > *:last-child{
+    transform:translateY(0);
+}
+
+.panel p {
+text-transform: uppercase;
+font-family: 'Staatliches', cursive;
+font-weight: bold;
+
+text-shadow: 
+0 0 20px white;
+
+font-size: 2em;
+}
+  
+.panel p:nth-child(2) {
+font-size: 4em;
+}
+
+.panel.open {
+    /*When the panel has a class of open, it'll take 5 times the amount of extra room as the other panels in the flex box.*/
+    flex: 5;
+    font-size: 40px;
+}
