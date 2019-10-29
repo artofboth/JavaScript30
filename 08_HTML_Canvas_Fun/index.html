@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HTML5 Canvas</title>
+</head>
+
+<body>
+
+    <canvas id="draw" width="800" height="800"></canvas>
+
+    <script>
+        const canvas = document.querySelector('#draw');
+
+        // Canvas on the web gets a block of actual pixels that you can draw on to.
+        // You don't draw directly on the canvas element, you draw on something called the context.
+        const ctx = canvas.getContext('2d');
+
+        //Sizing the canvas to be the exact size of the window
+        //This doesn't resize if you resize the browser window after loading it. 
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+
+        //These desscribe how your initial line should look. 
+        ctx.strokeStyle = 'aqua';
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        //Composite opetrations are like Photoshop blend modes. 
+        //ctx.globalCompositeOperation = 'multiply';
+
+
+        //creating a 'flag' that will be set to true when the user clicks down, so that we are only drawing a line when there's a click. 
+        let isDrawing = false;
+
+        //You need a starting x/y and a finishing x/y to draw a line. 
+        let lastX = 0;
+        let lastY = 0;
+        let hue = 0;
+        let direction = true;
+
+
+        //function
+        function draw(e) {
+            //If the user is not pressing down, stop the function from running. This ensures everything below this line will only run if the user is pressing down. 
+            if (!isDrawing) return;
+            console.log(e);
+
+            ctx.strokeStyle = `hsl( ${hue}, 100%, 50% )`;
+
+            //start from
+            ctx.beginPath();
+            //go to
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+
+            hue++;
+            if (hue >= 360) {
+                hue = 0;
+            }
+
+            //We are incrementing the line width up to 100 and then reversing the direction and making it smaller. We do this by using the 'direction' variable and setting it to true or false. 
+            if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
+                direction = !direction;
+            }
+
+            if (direction) { ctx.lineWidth++; }
+            else { ctx.lineWidth--; }
+
+
+        }
+
+        //Listening for an event (moving your mouse) and executing the function draw when it's heard. 
+
+
+        canvas.addEventListener('mousedown', (e) => {
+            isDrawing = true;
+            //updating these variables whenever the use clicks so that we are always starting lines from out current cursor location
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        });
+
+        canvas.addEventListener('mousemove', draw);
+
+        //Changing the variable to true or false if the user is clicking or not. 
+        canvas.addEventListener('mouseup', () => isDrawing = false);
+        canvas.addEventListener('mouseout', () => isDrawing = false); // If the cursor leaves the window. 
+
+
+
+    </script>
+
+    <style>
+        html,
+        body {
+            background: black;
+            margin: 0;
+        }
+    </style>
+
+</body>
+
+</html>
