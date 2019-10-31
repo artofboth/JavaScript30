@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Console Tricks</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <p onClick="makeGreen()">xBREAKxDOWN</p>
+    <!-- To find out where the JS is that is affecting an element on the pagr, inspect the element, richt click it in the DOM and go to Break On > Attribute Modifications -->
+</body>
+<script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'Hugo', age: 8 }];
+
+    function makeGreen() {
+        const p = document.querySelector('p');
+        p.style.color = '#BADA55';
+        p.style.fontSize = '50px';
+    }
+
+    //Console Tricks
+    //Regular
+    console.log('hello');
+
+    // Interpolating whatever you have passed as the second one.
+    console.log('Hello I am a %s string', '>>')
+
+    //However, with ES6, we have our option to input variables directly, like so:
+    //console.log('Hello I am ${var}')
+
+    //We can also add CSS styling to our console text through %c
+    console.log('%c Be a designer of your environment, not just a consumer', 'font-size:50px; background: yellow; color: black;');
+
+    //Warning (the yellow exclamation point) allows you to create a warning linked to a specific point in the code. 
+    console.warn('This is a custom warning');
+
+    //Error (the red cross)
+    console.error('This is a custom error');
+
+    //Information
+    console.info('This is a custom information');
+
+    //Testing: fires a custom message in the console if a condition is false. This removed the need for using an if statement.
+    const p = document.querySelector('p');
+    console.assert(p.classList.contains('example'), 'Error.');
+
+    //Clearing the console completely
+    //console.clear();
+
+    //viewing DOM elements
+    console.log(p);
+    // console.dir(p);
+    // Shows everythign that 'lives' on that element.
+
+    //Grouping information
+    dogs.forEach(dog => {
+        console.group(`${dog.name}`);
+        //You can have the group titles collapsed in the console by switching group to groupCollapsed.
+        console.log(`This is ${dog.name}.`);
+        console.log(`He is ${dog.age} years old.`);
+        console.groupEnd(`${dog.name}`);
+    });
+
+    //Counting
+    console.count('Julia');
+
+    //Timing (counting how long something is taking)
+    console.time('fetching data');
+    fetch('https://api.github.com/users/wesbos')
+        .then(data => data.json())
+        .then(data => {
+            console.timeEnd('fetching data')
+        });
+
+    //Displaying information in a table
+    console.table(dogs);
+
+</script>
+
+</html>
